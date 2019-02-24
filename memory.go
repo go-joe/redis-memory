@@ -16,14 +16,14 @@ type Config struct {
 	Logger   *zap.Logger
 }
 
-type brain struct {
+type memory struct {
 	logger *zap.Logger
 	Client *redis.Client
 	hkey   string
 }
 
-func Brain(addr string, opts ...Option) joe.Option {
-	return func(b *joe.Bot) error {
+func Memory(addr string, opts ...Option) joe.Option {
+	return func(joeConf *joe.Config) error {
 		conf := Config{Addr: addr}
 		for _, opt := range opts {
 			err := opt(&conf)
@@ -33,20 +33,20 @@ func Brain(addr string, opts ...Option) joe.Option {
 		}
 
 		if conf.Logger == nil {
-			conf.Logger = b.Logger
+			conf.Logger = joeConf.Logger
 		}
 
-		brain, err := NewBrain(conf)
+		memory, err := NewMemory(conf)
 		if err != nil {
 			return err
 		}
 
-		b.Brain = brain
+		joeConf.Memory = memory
 		return nil
 	}
 }
 
-func NewBrain(conf Config) (joe.Brain, error) {
+func NewMemory(conf Config) (joe.Memory, error) {
 	if conf.Logger == nil {
 		conf.Logger = zap.NewNop()
 	}
@@ -55,39 +55,37 @@ func NewBrain(conf Config) (joe.Brain, error) {
 		conf.Key = "joe-bot"
 	}
 
-	brain := &brain{
+	memory := &memory{
 		logger: conf.Logger,
 		hkey:   conf.Key,
 	}
 
-	brain.logger.Debug("Connecting to redis memory",
+	memory.logger.Debug("Connecting to redis memory",
 		zap.String("addr", conf.Addr),
-		zap.String("key", brain.hkey),
+		zap.String("key", memory.hkey),
 	)
 
-	brain.Client = redis.NewClient(&redis.Options{
+	memory.Client = redis.NewClient(&redis.Options{
 		Addr:     conf.Addr,
 		Password: conf.Password,
 		DB:       conf.DB,
 	})
 
-	_, err := brain.Client.Ping().Result()
+	_, err := memory.Client.Ping().Result()
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to ping redis")
 	}
 
-	brain.logger.Info("Memory initialized successfully")
-	return brain, nil
+	memory.logger.Info("Memory initialized successfully")
+	return memory, nil
 }
 
-func (b *brain) Set(key, value string) error {
-	b.logger.Debug("Writing data to memory", zap.String("key", key))
+func (b *memory) Set(key, value string) error {
 	resp := b.Client.HSet(b.hkey, key, value)
 	return resp.Err()
 }
 
-func (b *brain) Get(key string) (string, bool, error) {
-	b.logger.Debug("Retrieving data from memory", zap.String("key", key))
+func (b *memory) Get(key string) (string, bool, error) {
 	res, err := b.Client.HGet(b.hkey, key).Result()
 	switch {
 	case err == redis.Nil:
@@ -99,16 +97,15 @@ func (b *brain) Get(key string) (string, bool, error) {
 	}
 }
 
-func (b *brain) Delete(key string) (bool, error) {
-	b.logger.Debug("Deleting data from memory", zap.String("key", key))
+func (b *memory) Delete(key string) (bool, error) {
 	res, err := b.Client.HDel(b.hkey, key).Result()
 	return res > 0, err
 }
 
-func (b *brain) Memories() (map[string]string, error) {
+func (b *memory) Memories() (map[string]string, error) {
 	return b.Client.HGetAll(b.hkey).Result()
 }
 
-func (b *brain) Close() error {
+func (b *memory) Close() error {
 	return b.Client.Close()
 }

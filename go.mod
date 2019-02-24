@@ -1,4 +1,4 @@
-module github.com/go-joe/redis-brain
+module github.com/go-joe/redis-memory
 
 require (
 	github.com/go-joe/joe v0.0.0
