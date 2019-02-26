@@ -22,7 +22,7 @@ type memory struct {
 	hkey   string
 }
 
-func Memory(addr string, opts ...Option) joe.Option {
+func Memory(addr string, opts ...Option) joe.Module {
 	return func(joeConf *joe.Config) error {
 		conf := Config{Addr: addr}
 		for _, opt := range opts {
@@ -33,7 +33,7 @@ func Memory(addr string, opts ...Option) joe.Option {
 		}
 
 		if conf.Logger == nil {
-			conf.Logger = joeConf.Logger
+			conf.Logger = joeConf.Logger("redis")
 		}
 
 		memory, err := NewMemory(conf)
@@ -41,7 +41,7 @@ func Memory(addr string, opts ...Option) joe.Option {
 			return err
 		}
 
-		joeConf.Memory = memory
+		joeConf.SetMemory(memory)
 		return nil
 	}
 }
