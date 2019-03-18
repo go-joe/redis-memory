@@ -22,8 +22,8 @@ installation is by adding joe and all used modules to your `go.mod` file like th
 module github.com/go-joe/example-bot
 
 require (
-	github.com/go-joe/joe v0.3.0
-	github.com/go-joe/redis-memory v0.1.0
+	github.com/go-joe/joe v0.4.0
+	github.com/go-joe/redis-memory v0.2.0
 	…
 )
 ```

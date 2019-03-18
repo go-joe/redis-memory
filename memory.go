@@ -23,7 +23,7 @@ type memory struct {
 }
 
 func Memory(addr string, opts ...Option) joe.Module {
-	return func(joeConf *joe.Config) error {
+	return joe.ModuleFunc(func(joeConf *joe.Config) error {
 		conf := Config{Addr: addr}
 		for _, opt := range opts {
 			err := opt(&conf)
@@ -43,7 +43,7 @@ func Memory(addr string, opts ...Option) joe.Module {
 
 		joeConf.SetMemory(memory)
 		return nil
-	}
+	})
 }
 
 func NewMemory(conf Config) (joe.Memory, error) {
