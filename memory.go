@@ -80,20 +80,20 @@ func NewMemory(conf Config) (joe.Memory, error) {
 	return memory, nil
 }
 
-func (b *memory) Set(key, value string) error {
+func (b *memory) Set(key string, value []byte) error {
 	resp := b.Client.HSet(b.hkey, key, value)
 	return resp.Err()
 }
 
-func (b *memory) Get(key string) (string, bool, error) {
+func (b *memory) Get(key string) ([]byte, bool, error) {
 	res, err := b.Client.HGet(b.hkey, key).Result()
 	switch {
 	case err == redis.Nil:
-		return "", false, nil
+		return nil, false, nil
 	case err != nil:
-		return "", false, err
+		return nil, false, err
 	default:
-		return res, true, nil
+		return []byte(res), true, nil
 	}
 }
 
@@ -102,8 +102,8 @@ func (b *memory) Delete(key string) (bool, error) {
 	return res > 0, err
 }
 
-func (b *memory) Memories() (map[string]string, error) {
-	return b.Client.HGetAll(b.hkey).Result()
+func (b *memory) Keys() ([]string, error) {
+	return b.Client.Keys("*").Result()
 }
 
 func (b *memory) Close() error {
