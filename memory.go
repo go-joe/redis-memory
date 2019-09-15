@@ -103,7 +103,7 @@ func (b *memory) Delete(key string) (bool, error) {
 }
 
 func (b *memory) Keys() ([]string, error) {
-	return b.Client.Keys("*").Result()
+	return b.Client.HKeys(b.hkey).Result()
 }
 
 func (b *memory) Close() error {
