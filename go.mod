@@ -1,5 +1,7 @@
 module github.com/go-joe/redis-memory
 
+go 1.12
+
 require (
 	github.com/go-joe/joe v0.8.0
 	github.com/go-redis/redis v6.15.2+incompatible
