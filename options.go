@@ -2,8 +2,10 @@ package redis
 
 import "go.uber.org/zap"
 
+// An Option can be passed to the Memory function for opt-in functionality.
 type Option func(*Config) error
 
+// WithConfig is an Option to have full control over all redis connection options.
 func WithConfig(newConf Config) Option {
 	return func(oldConf *Config) error {
 		oldConf.Addr = newConf.Addr
@@ -15,6 +17,7 @@ func WithConfig(newConf Config) Option {
 	}
 }
 
+// WithLogger is an Option to let the Redis memory use a specific logger.
 func WithLogger(logger *zap.Logger) Option {
 	return func(conf *Config) error {
 		conf.Logger = logger
@@ -22,12 +25,11 @@ func WithLogger(logger *zap.Logger) Option {
 	}
 }
 
+// WithKey is an Option to use a different redis key to store the memories of
+// the bot (default is "joe-bot").
 func WithKey(key string) Option {
 	return func(conf *Config) error {
 		conf.Key = key
 		return nil
 	}
 }
-
-// TODO: database
-// TODO: password
