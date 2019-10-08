@@ -49,7 +49,6 @@ func TestMemory(t *testing.T) {
 	joeConf := joe.NewConfig(logger, nil, store, nil)
 	err = mod.Apply(&joeConf)
 	require.NoError(t, err)
-
 }
 
 func TestNewMemory_NoRedis(t *testing.T) {
