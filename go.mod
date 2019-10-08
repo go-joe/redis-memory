@@ -6,6 +6,7 @@ require (
 	github.com/fzerorubigd/redimock v0.0.0-20190203221554-6d493724ce3b
 	github.com/go-joe/joe v0.8.0
 	github.com/go-redis/redis v6.15.5+incompatible
+	github.com/gomodule/redigo v2.0.0+incompatible // indirect
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pkg/errors v0.8.1
