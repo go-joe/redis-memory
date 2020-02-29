@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Nothing so far
 
+## [v1.0.1] - 2020-02-29
+- Tag version on master branch (v1.0.0 is ok but tagged on false branch accidentally)
+
 ## [v1.0.0] - 2020-02-29
 - Remove dependency on github.com/pkg/errors
 - Update to Go 1.14
@@ -28,7 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial alpha release
 
-[Unreleased]: https://github.com/go-joe/redis-memory/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/go-joe/redis-memory/compare/v1.0.1...HEAD
+[v1.0.1]: https://github.com/go-joe/redis-memory/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/go-joe/redis-memory/compare/v0.3.2...v1.0.0
 [v0.3.2]: https://github.com/go-joe/redis-memory/compare/v0.3.1...v0.3.2
 [v0.3.1]: https://github.com/go-joe/redis-memory/compare/v0.3.0...v0.3.1
