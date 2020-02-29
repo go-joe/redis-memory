@@ -5,7 +5,7 @@
 	<a href="https://circleci.com/gh/go-joe/redis-memory/tree/master"><img src="https://circleci.com/gh/go-joe/redis-memory/tree/master.svg?style=shield"></a>
 	<a href="https://goreportcard.com/report/github.com/go-joe/redis-memory"><img src="https://goreportcard.com/badge/github.com/go-joe/redis-memory"></a>
 	<a href="https://codecov.io/gh/go-joe/redis-memory"><img src="https://codecov.io/gh/go-joe/redis-memory/branch/master/graph/badge.svg"/></a>
-	<a href="https://godoc.org/github.com/go-joe/redis-memory"><img src="https://img.shields.io/badge/godoc-reference-blue.svg?color=blue"></a>
+	<a href="https://pkg.go.dev/github.com/go-joe/redis-memory?tab=doc"><img src="https://img.shields.io/badge/godoc-reference-blue.svg?color=blue"></a>
 	<a href="https://github.com/go-joe/redis-memory/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-BSD--3--Clause-blue.svg"></a>
 </p>
 
@@ -13,11 +13,9 @@
 
 This repository contains a module for the [Joe Bot library][joe].
 
-**THIS SOFTWARE IS STILL IN ALPHA AND THERE ARE NO GUARANTEES REGARDING API STABILITY YET.**
-
 ## Getting Started
 
-This library is packaged using the new [Go modules][go-modules]. You can get it via:
+This library is packaged as [Go module][go-modules]. You can get it via:
 
 ```
 go get github.com/go-joe/redis-memory
@@ -100,7 +98,6 @@ func (b *ExampleBot) ShowKeys(msg joe.Message) error {
 
 * [go-redis](https://github.com/go-redis/redis) - redis client in Go
 * [redimock](https://github.com/fzerorubigd/redimock) - redis mock library in tcp level
-* [pkg/errors](https://github.com/pkg/errors) - Simple error handling primitives
 * [testify](https://github.com/stretchr/testify) - A simple unit test library
 * [zap](https://github.com/uber-go/zap) - Blazing fast, structured, leveled logging in Go
 
@@ -112,7 +109,7 @@ guide first.
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available,
-see the [tags on this repository][tags. 
+see the [tags on this repository][tags]. 
 
 ## Authors
 
