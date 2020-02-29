@@ -3,11 +3,11 @@
 package redis
 
 import (
-	"github.com/go-redis/redis"
-	"github.com/pkg/errors"
-	"go.uber.org/zap"
+	"fmt"
 
 	"github.com/go-joe/joe"
+	"github.com/go-redis/redis"
+	"go.uber.org/zap"
 )
 
 // Config contains all settings for the Redis memory.
@@ -79,7 +79,7 @@ func NewMemory(conf Config) (joe.Memory, error) {
 
 	_, err := memory.Client.Ping().Result()
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to ping redis")
+		return nil, fmt.Errorf("failed to ping redis: %w", err)
 	}
 
 	memory.logger.Info("Memory initialized successfully")
