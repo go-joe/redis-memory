@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/go-joe/joe"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v7"
 	"go.uber.org/zap"
 )
 
